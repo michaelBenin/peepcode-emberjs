@@ -19,6 +19,12 @@ App.TablesRoute = Ember.Route.extend({
   }
 });
 
+App.IndexRoute = Ember.Route.extend({
+  redirect: function(){
+    this.transitionTo('tables');
+  }
+});
+
 // AUTO GENERATED
 // App.TableRoute = Ember.Route.extend({
 //   model: function(params){
@@ -27,13 +33,25 @@ App.TablesRoute = Ember.Route.extend({
 // });
 
 // AUTO GENERATED
+App.TablesController = Ember.ArrayController.extend({
+  sortProperties: ['id']
+});
+
+// AUTO GENERATED
 // App.TableController = Ember.ObjectController.extend();
 
-App.TablesController = Ember.ArrayController.extend();
+App.FoodController = Ember.ArrayController.extend({
+  addFood: function(food) {
+    var table = this.controllerFor('table').get('model');
+    var tabItems = table.get('tab.tabItems');
+    tabItems.createRecord({
+      food: food,
+      cents: food.get('cents')
+    });
+  }
+});
 
-App.FoodController = Ember.ArrayController.extend();
-
-App.TabController = Ember.ObjectController.extend();
+// App.TabController = Ember.ObjectController.extend();
 
 // View Helpers
 Ember.Handlebars.registerBoundHelper('money', function(value){
