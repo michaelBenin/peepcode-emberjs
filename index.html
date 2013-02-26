@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <script type="text/x-handlebars" charset="utf-8" data-template-name="application">
+    <script type="text/x-handlebars" data-template-name="application">
       <div class="row">
         <div class="twelve columns">
           <h1>Ordr</h1>
@@ -25,11 +25,11 @@
         </div>
       </div>
     </script>
-    <script type="text/x-handlebars" charset="utf-8" data-template-name="index">
+    <script type="text/x-handlebars" data-template-name="index">
       Hello, Ember!
     </script>
 
-    <script type="text/x-handlebars" charset="utf-8" data-template-name="tables">
+    <script type="text/x-handlebars" data-template-name="tables">
       <div class="row">
         <div class="four columns" id="tables">
           {{ partial "tableMenu" }}
@@ -40,22 +40,38 @@
       </div>
     </script>
 
-    <script type="text/x-handlebars" charset="utf-8" data-template-name="_tableMenu">
+    <script type="text/x-handlebars" data-template-name="tables/index">
+      <h2>Please select a table</h2>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="_tableMenu">
       <h2>Tables</h2>
       {{#each table in controller }}
         {{#linkTo "table" table class="panel six columns"}}{{ table.id }}{{/linkTo}}
       {{/each}}
     </script>
 
-    <script type="text/x-handlebars" charset="utf-8" data-template-name="table">
+    <script type="text/x-handlebars" data-template-name="table">
       <div class="row">
         <div class="three columns">
           {{ render "food" }}
         </div>
         <div class="nine columns">
-          <h2>Table <span>{{ id }}</span></h>
+          <h2>Table <span>{{ id }}</span></h2>
+          {{ render "tab" tab }}
         </div>
       </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="tab">
+      <ul id="customer-tab">
+        {{#each tabItem in tabItems}}
+          <li><h3>{{ tabItem.food.name }} <span>${{ money tabItem.cents }}</span></h3></li>
+        {{else}}
+          <li><h3>Click a food to add it</h3></li>
+        {{/each}}
+        <li id="total"><h3>Total <span>${{ money cents }}</span></h3></li>
+      </ul>
     </script>
 
     <script type="text/x-handlebars" charset="utf-8" data-template-name="food">
